@@ -1,7 +1,11 @@
-variable "bridge" {
-  type      = string
-  default   = "bridge1"
+variable "bridges" {
+  description = "List of bridges present on your Mikrotik device"
+  type = list(object({
+    name           = string
+    pvid           = number
+  }))
 }
+
 variable "homelab_password" {
   type      = string
   sensitive = true
@@ -24,12 +28,15 @@ variable "vlans" {
   description = "List of vlans present on your Mikrotik device"
   type = list(object({
     name           = string
+    comment        = string
+    interface      = string
     id             = number
     tagged_ports   = list(string)
     untagged_ports = list(string)
   }))
   default = []
 }
+
 variable "default_cidr" {
   description = "Default cidr used as base for all subnets"
   type        = string
