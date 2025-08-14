@@ -21,15 +21,15 @@ vlans = [
     comment         = "guest"
     interface       = "bridge"
     id              = 90
-    tagged_ports    = []
-    untagged_ports  = []
+    tagged_ports    = ["ether8"]
+    untagged_ports  = [""]
   },
   {
     name            = "vlan_91"
     comment         = "iot"
     interface       = "bridge"
     id              = 91 
-    tagged_ports    = []
+    tagged_ports    = ["ether8"]
     untagged_ports  = []
   },
   {
@@ -37,7 +37,7 @@ vlans = [
     comment         = "internal"
     interface       = "bridge"
     id              = 100
-    tagged_ports    = []
+    tagged_ports    = ["ether8"]
     untagged_ports  = []
   },
   {
