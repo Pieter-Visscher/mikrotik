@@ -8,22 +8,22 @@ bridges = [
 ]
 vlans = [
   # commented out for dev purposes as the current situation does not follow the standard (ip 10.0.50.3 instead of 10.0.50.1, side by side with prod network in same subnet)
+  {
+    name            = "vlan_50"
+    comment         = "management"
+    interface       = "bridge"
+    id              = 50
+    tagged_ports    = []
+    untagged_ports  = []
+  },
   #{
-  #  name            = "vlan_50"
-  #  comment         = "management"
-  #  interface       = "bridge"
-  #  id              = 50
-  #  tagged_ports    = []
+  #  name            = "vlan_90"
+  #  comment         = "guest"
+  #  interface       = "bridge2"
+  #  id              = 90
+  #  tagged_ports    = ["ether8"]
   #  untagged_ports  = []
   #},
-  {
-    name            = "vlan_90"
-    comment         = "guest"
-    interface       = "bridge"
-    id              = 90
-    tagged_ports    = ["ether8"]
-    untagged_ports  = [""]
-  },
   {
     name            = "vlan_91"
     comment         = "iot"
