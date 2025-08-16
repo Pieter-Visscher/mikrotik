@@ -62,3 +62,22 @@ wan = {
   interface = "ether2"
   dhcp      = true
 }
+
+CAPsMAN = enabled
+
+wifi_config = [
+  {
+  }
+]
+
+# create configuration using selected datapath, channel, etc
+# create provisioning config with all available wifi configs, first list in the entry is master.
+
+
+wifi_datapath = [
+]
+wifi_channel = [
+]
+wifi_security = [
+]
+
