@@ -57,3 +57,8 @@ vlans = [
     untagged_ports  = []
   }
 ]
+
+wan = {
+  interface = "ether2"
+  dhcp      = true
+}
