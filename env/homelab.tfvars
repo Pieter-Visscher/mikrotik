@@ -1,5 +1,10 @@
 default_cidr = "10.0.0.0/24"
 
+wan = {
+  interface = "ether2"
+  dhcp      = true
+}
+
 bridges = [
   {
     name            = "bridge"
@@ -58,15 +63,17 @@ vlans = [
   }
 ]
 
-wan = {
-  interface = "ether2"
-  dhcp      = true
-}
 
-CAPsMAN = enabled
+CAPsMAN       = enabled
+wifi_country  = "Netherlands"
 
 wifi_config = [
   {
+    name      = "internal"
+    datapath  = "internal_datapath"
+    channel   = "generic 5GHz"
+    security  = "generic WPA2/3"
+    ssid      = "nauvis"
   }
 ]
 
@@ -77,7 +84,24 @@ wifi_config = [
 wifi_datapath = [
 ]
 wifi_channel = [
+  {
+    name              = "max-perf 5Ghz"
+    band              = "5ghz-ax"
+    channel_width     = "20/40/80/160mhz"
+    skip_dfs          = "all"
+    reselect_interval = "30m..60m"
+    frequency         = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
+  },
+  {
+    name              = "Gen 5Ghz"
+    band              = "5ghz-ax"
+    channel_width     = "20/40mhz"
+    skip_dfs          = "all"
+    reselect_interval = "30m..60m"
+    frequency         = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
+  }
 ]
 wifi_security = [
+  
 ]
 

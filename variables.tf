@@ -6,6 +6,11 @@ variable "bridges" {
   }))
 }
 
+variable "default_cidr" {
+  description = "Default cidr used as base for all subnets"
+  type        = string
+}
+
 variable "homelab_password" {
   type      = string
   sensitive = true
@@ -37,11 +42,6 @@ variable "vlans" {
   default = []
 }
 
-variable "default_cidr" {
-  description = "Default cidr used as base for all subnets"
-  type        = string
-}
-
 variable "wan" {
   description = "Configure interface as WAN port"
   type = object({
@@ -50,3 +50,37 @@ variable "wan" {
   })
 }
 
+variable "wifi_config" {
+  description = "list of wifi configurations, first in list is used as primary, for actual config select the datapath/channel/security template name"
+  type        = list(object({
+    name      = string
+    datapath  = string
+    channel   = string
+    security  = string
+    ssid      = string
+  }))
+  default     = []
+}
+
+variable "wifi_channel" {
+  description = "list of wifi channel configuration templates"
+  type                = list(object({
+    name              = string
+    band              = string
+    channel_width     = string
+    skip_dfs          = string
+    reselect_interval = string
+    frequency         = list(number)
+  }))
+}
+
+variable "wifi_country" {
+  description = "your location, for wifi configuration"
+  type        = string
+}
+variable "wifi_passwords" {
+  description = "map of password in secrets.auto.tfvars"
+  type        = map(string)
+  sensitive   = true
+  default     = {}
+}
