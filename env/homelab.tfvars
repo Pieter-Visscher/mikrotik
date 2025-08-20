@@ -64,16 +64,25 @@ vlans = [
 ]
 
 
-CAPsMAN       = enabled
+CAPsMAN       = true
+CAPsMAN_interfaces = ["ether8"]
+
 wifi_country  = "Netherlands"
 
 wifi_config = [
   {
     name      = "internal"
     datapath  = "internal_datapath"
-    channel   = "generic 5GHz"
-    security  = "generic WPA2/3"
+    channel   = "max-perf 5Ghz"
+    security  = "WPA2/3 PSK - no roaming"
     ssid      = "nauvis"
+  },
+  {
+    name      = "iot"
+    datapath  = "iot_datapath"
+    channel   = "Gen 5Ghz"
+    security  = "WPA2/3 PSK - iot"
+    ssid      = "nauvis iot"
   }
 ]
 
@@ -82,26 +91,60 @@ wifi_config = [
 
 
 wifi_datapath = [
+  {
+    name                  = "internal_datapath"
+    vlan_id               = 100
+    client_isolation      = false
+    bridge                = "bridge"
+  },
+  #{
+  #  name                  = "guest_datapath"
+  #  vlan_id               = "guest"
+  #  client_isolation      = true
+  #  bridge                = "bridge"
+  #},
+  {
+    name                  = "iot_datapath"
+    vlan_id               = 91
+    client_isolation      = false
+    bridge                = "bridge"
+  }
+
 ]
 wifi_channel = [
   {
-    name              = "max-perf 5Ghz"
-    band              = "5ghz-ax"
-    channel_width     = "20/40/80/160mhz"
-    skip_dfs          = "all"
-    reselect_interval = "30m..60m"
-    frequency         = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
+    name                  = "max-perf 5Ghz"
+    band                  = "5ghz-ax"
+    channel_width         = "20/40/80/160mhz"
+    skip_dfs              = "all"
+    reselect_interval     = "30m..1h"
+    frequency             = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
   },
   {
-    name              = "Gen 5Ghz"
-    band              = "5ghz-ax"
-    channel_width     = "20/40mhz"
-    skip_dfs          = "all"
-    reselect_interval = "30m..60m"
-    frequency         = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
+    name                  = "Gen 5Ghz"
+    band                  = "5ghz-ax"
+    channel_width         = "20/40mhz"
+    skip_dfs              = "all"
+    reselect_interval     = "30m..1h"
+    frequency             = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
   }
 ]
 wifi_security = [
-  
+  {
+    name                  = "WPA2/3 PSK - no roaming"
+    authentication_types = ["wpa2-psk", "wpa3-psk"]
+    ft                    = false
+    ft-over-ds            = false
+    management_protection = "required"
+    # (allowed | disabled | required)
+  },
+  {
+    name                  = "WPA2/3 PSK - iot"
+    authentication_types = ["wpa2-psk", "wpa3-psk"]
+    ft                    = false
+    ft-over-ds            = false
+    management_protection = "disabled"
+    # (allowed | disabled | required)
+  },
 ]
 

@@ -6,6 +6,17 @@ variable "bridges" {
   }))
 }
 
+variable "CAPsMAN" {
+  description = "Enable Capsman"
+  type        = bool
+  default     = false
+}
+
+variable "CAPsMAN_interfaces" {
+  description = "list of interfaces where CAPsMAN listens for CAP devices"
+  type        = list(string)
+}
+
 variable "default_cidr" {
   description = "Default cidr used as base for all subnets"
   type        = string
@@ -63,7 +74,7 @@ variable "wifi_config" {
 }
 
 variable "wifi_channel" {
-  description = "list of wifi channel configuration templates"
+  description         = "list of wifi channel configuration templates"
   type                = list(object({
     name              = string
     band              = string
@@ -78,9 +89,31 @@ variable "wifi_country" {
   description = "your location, for wifi configuration"
   type        = string
 }
+
+variable "wifi_datapath" {
+  description         = "list of datapath configuration templates"
+  type                = list(object({
+    name              = string
+    vlan_id           = string
+    client_isolation  = bool
+    bridge            = string
+  }))
+}
+
 variable "wifi_passwords" {
   description = "map of password in secrets.auto.tfvars"
   type        = map(string)
   sensitive   = true
   default     = {}
+}
+
+variable "wifi_security" {
+  description             = "security settings"
+  type                    = list(object({
+    name                  = string
+    authentication_types  = list(string)
+    ft                    = bool
+    ft-over-ds            = bool
+    management_protection = string
+  }))
 }
