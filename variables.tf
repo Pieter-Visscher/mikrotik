@@ -22,6 +22,11 @@ variable "default_cidr" {
   type        = string
 }
 
+variable "dhcp_range" {
+  description = "range used for DHCP server"
+  type        = list(number)
+}
+
 variable "homelab_password" {
   type      = string
   sensitive = true
@@ -49,6 +54,7 @@ variable "vlans" {
     id             = number
     tagged_ports   = list(string)
     untagged_ports = list(string)
+    dhcp           = bool
   }))
   default = []
 }
@@ -61,13 +67,17 @@ variable "wan" {
   })
 }
 
+variable "wan_allowed" {
+  description = "List of interfaces with WAN access"
+  type        = list(string)
+}
+
 variable "wifi_config" {
   description = "list of wifi configurations, first in list is used as primary, for actual config select the datapath/channel/security template name"
   type        = list(object({
     name      = string
     datapath  = string
     channel   = string
-    security  = string
     ssid      = string
   }))
   default     = []

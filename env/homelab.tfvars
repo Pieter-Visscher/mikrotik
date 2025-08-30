@@ -1,18 +1,17 @@
-default_cidr = "10.0.0.0/24"
-
-wan = {
-  interface = "ether2"
-  dhcp      = true
-}
-
 bridges = [
   {
     name            = "bridge"
     pvid            = 1
   }
 ]
+
+CAPsMAN            = true
+CAPsMAN_interfaces = ["vlan_51"]
+
+default_cidr = "10.0.0.0/24"
+dhcp_range   = [200, 254]
+
 vlans = [
-  # commented out for dev purposes as the current situation does not follow the standard (ip 10.0.50.3 instead of 10.0.50.1, side by side with prod network in same subnet)
   {
     name            = "vlan_50"
     comment         = "management"
@@ -20,6 +19,16 @@ vlans = [
     id              = 50
     tagged_ports    = []
     untagged_ports  = []
+    dhcp            = false
+  },
+  {
+    name            = "vlan_51"
+    comment         = "ap-management"
+    interface       = "bridge"
+    id              = 51
+    tagged_ports    = []
+    untagged_ports  = ["ether8"]
+    dhcp            = true
   },
   #{
   #  name            = "vlan_90"
@@ -28,6 +37,7 @@ vlans = [
   #  id              = 90
   #  tagged_ports    = ["ether8"]
   #  untagged_ports  = []
+  #  dhcp            = true
   #},
   {
     name            = "vlan_91"
@@ -36,6 +46,7 @@ vlans = [
     id              = 91 
     tagged_ports    = ["ether8"]
     untagged_ports  = []
+    dhcp            = true
   },
   {
     name            = "vlan_100"
@@ -44,6 +55,7 @@ vlans = [
     id              = 100
     tagged_ports    = ["ether8"]
     untagged_ports  = []
+    dhcp            = true
   },
   {
     name            = "vlan_150"
@@ -52,6 +64,7 @@ vlans = [
     id              = 150
     tagged_ports    = []
     untagged_ports  = []
+    dhcp            = false
   },
   {
     name            = "vlan_200"
@@ -60,13 +73,17 @@ vlans = [
     id              = "200"
     tagged_ports    = []
     untagged_ports  = []
+    dhcp            = false
   }
 ]
 
 
-CAPsMAN       = true
-CAPsMAN_interfaces = ["ether8"]
+wan = {
+  interface = "ether2"
+  dhcp      = true
+}
 
+wan_allowed = ["vlan_50", "vlan_100", "vlan_150", "vlan_200"]
 wifi_country  = "Netherlands"
 
 wifi_config = [
@@ -74,14 +91,12 @@ wifi_config = [
     name      = "internal"
     datapath  = "internal_datapath"
     channel   = "max-perf 5Ghz"
-    security  = "WPA2/3 PSK - no roaming"
     ssid      = "nauvis"
   },
   {
     name      = "iot"
     datapath  = "iot_datapath"
     channel   = "Gen 5Ghz"
-    security  = "WPA2/3 PSK - iot"
     ssid      = "nauvis iot"
   }
 ]
@@ -115,7 +130,7 @@ wifi_channel = [
   {
     name                  = "max-perf 5Ghz"
     band                  = "5ghz-ax"
-    channel_width         = "20/40/80/160mhz"
+    channel_width         = "20/40/80mhz"
     skip_dfs              = "all"
     reselect_interval     = "30m..1h"
     frequency             = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
@@ -129,9 +144,10 @@ wifi_channel = [
     frequency             = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
   }
 ]
+
 wifi_security = [
   {
-    name                  = "WPA2/3 PSK - no roaming"
+    name                  = "internal"
     authentication_types = ["wpa2-psk", "wpa3-psk"]
     ft                    = false
     ft-over-ds            = false
@@ -139,11 +155,11 @@ wifi_security = [
     # (allowed | disabled | required)
   },
   {
-    name                  = "WPA2/3 PSK - iot"
+    name                  = "iot"
     authentication_types = ["wpa2-psk", "wpa3-psk"]
     ft                    = false
     ft-over-ds            = false
-    management_protection = "disabled"
+    management_protection = "allowed"
     # (allowed | disabled | required)
   },
 ]
