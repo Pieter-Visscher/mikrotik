@@ -59,6 +59,28 @@ variable "vlans" {
   default = []
 }
 
+variable "vpn_interface_address" {
+  type = string
+  description = "address inside the vpn subnet. Base subnet + vpn_interface_subnet is used to compile complete subnet in cidr notation"
+}
+variable "vpn_interface_subnet" {
+  type = string
+  description = "subnet used for the VPN network"
+}
+
+variable "vpn_peers" {
+  type  = list(object({
+    name        = string
+    psk         = string
+    public_key  = string
+    private_key = string
+    subnets     = list(string)
+    id          = number
+    comment     = string
+  }))
+  default = []
+}
+
 variable "wan" {
   description = "Configure interface as WAN port"
   type = object({
@@ -71,6 +93,12 @@ variable "wan_allowed" {
   description = "List of interfaces with WAN access"
   type        = list(string)
 }
+
+variable "wan_ip" {
+  type        = string
+  description = "WAN IP"
+}
+
 
 variable "wifi_config" {
   description = "list of wifi configurations, first in list is used as primary, for actual config select the datapath/channel/security template name"

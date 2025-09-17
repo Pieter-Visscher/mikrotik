@@ -30,15 +30,15 @@ vlans = [
     untagged_ports  = ["ether8"]
     dhcp            = true
   },
-  #{
-  #  name            = "vlan_90"
-  #  comment         = "guest"
-  #  interface       = "bridge2"
-  #  id              = 90
-  #  tagged_ports    = ["ether8"]
-  #  untagged_ports  = []
-  #  dhcp            = true
-  #},
+  {
+    name            = "vlan_90"
+    comment         = "guest"
+    interface       = "bridge"
+    id              = 90
+    tagged_ports    = ["ether8"]
+    untagged_ports  = []
+    dhcp            = true
+  },
   {
     name            = "vlan_91"
     comment         = "iot"
@@ -53,7 +53,7 @@ vlans = [
     comment         = "internal"
     interface       = "bridge"
     id              = 100
-    tagged_ports    = ["ether8"]
+    tagged_ports    = ["ether8", "ether1"]
     untagged_ports  = []
     dhcp            = true
   },
@@ -77,6 +77,8 @@ vlans = [
   }
 ]
 
+vpn_interface_address = "1"
+vpn_interface_subnet = 255
 
 wan = {
   interface = "ether2"
@@ -112,12 +114,12 @@ wifi_datapath = [
     client_isolation      = false
     bridge                = "bridge"
   },
-  #{
-  #  name                  = "guest_datapath"
-  #  vlan_id               = "guest"
-  #  client_isolation      = true
-  #  bridge                = "bridge"
-  #},
+  {
+    name                  = "guest_datapath"
+    vlan_id               = "90"
+    client_isolation      = true
+    bridge                = "bridge"
+  },
   {
     name                  = "iot_datapath"
     vlan_id               = 91
