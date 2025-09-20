@@ -5,7 +5,8 @@ module "wifi" {
   CAPsMAN_interfaces  = var.CAPsMAN_interfaces
   wifi_country        = var.wifi_country
   wifi_passwords      = var.wifi_passwords
-  wifi_config         = var.wifi_config
+  wifi_config-24ghz         = var.wifi_config-24ghz
+  wifi_config-5ghz         = var.wifi_config-5ghz
   wifi_datapath       = var.wifi_datapath
   wifi_channel        = var.wifi_channel
   wifi_security       = var.wifi_security

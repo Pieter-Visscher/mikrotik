@@ -88,18 +88,37 @@ wan = {
 wan_allowed = ["vlan_50", "vlan_100", "vlan_150", "vlan_200"]
 wifi_country  = "Netherlands"
 
-wifi_config = [
+wifi_config-24ghz = [
   {
-    name      = "internal"
+    name      = "internal-2.4ghz"
     datapath  = "internal_datapath"
-    channel   = "max-perf 5Ghz"
+    channel   = "Gen 2.4Ghz"
     ssid      = "nauvis"
+    security  = "internal"
   },
   {
-    name      = "iot"
+    name      = "iot-2.4ghz"
+    datapath  = "iot_datapath"
+    channel   = "test 2.4Ghz"
+    ssid      = "nauvis iot"
+    security  = "iot"
+  }
+]
+
+wifi_config-5ghz = [
+  {
+    name      = "internal-5ghz"
+    datapath  = "internal_datapath"
+    channel   = "Gen 5Ghz"
+    ssid      = "nauvis"
+    security  = "internal"
+  },
+  {
+    name      = "iot-5ghz"
     datapath  = "iot_datapath"
     channel   = "Gen 5Ghz"
     ssid      = "nauvis iot"
+    security  = "iot"
   }
 ]
 
@@ -133,32 +152,44 @@ wifi_channel = [
     name                  = "max-perf 5Ghz"
     band                  = "5ghz-ax"
     channel_width         = "20/40/80mhz"
-    skip_dfs              = "all"
+    skip_dfs              = "10min-cac"
     reselect_interval     = "30m..1h"
-    frequency             = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
   },
   {
     name                  = "Gen 5Ghz"
     band                  = "5ghz-ax"
     channel_width         = "20/40mhz"
+    skip_dfs              = "10min-cac"
+    reselect_interval     = "30m..1h"
+  },
+  {
+    name                  = "Gen 2.4Ghz"
+    band                  = "2ghz-ax"
+    channel_width         = "20mhz"
     skip_dfs              = "all"
     reselect_interval     = "30m..1h"
-    frequency             = [5160, 5200, 5240, 5745, 5765, 5785, 5805, 5825]
+  },
+  {
+    name                  = "test 2.4Ghz"
+    band                  = "2ghz-n"
+    channel_width         = "20mhz"
+    skip_dfs              = "all"
+    reselect_interval     = "30m..1h"
   }
 ]
 
 wifi_security = [
   {
     name                  = "internal"
-    authentication_types = ["wpa2-psk", "wpa3-psk"]
+    authentication_types = ["wpa2-psk"]
     ft                    = false
     ft-over-ds            = false
-    management_protection = "required"
+    management_protection = "allowed"
     # (allowed | disabled | required)
   },
   {
     name                  = "iot"
-    authentication_types = ["wpa2-psk", "wpa3-psk"]
+    authentication_types = ["wpa2-psk"]
     ft                    = false
     ft-over-ds            = false
     management_protection = "allowed"

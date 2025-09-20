@@ -100,17 +100,29 @@ variable "wan_ip" {
 }
 
 
-variable "wifi_config" {
+variable "wifi_config-24ghz" {
   description = "list of wifi configurations, first in list is used as primary, for actual config select the datapath/channel/security template name"
   type        = list(object({
     name      = string
     datapath  = string
     channel   = string
     ssid      = string
+    security  = string
   }))
   default     = []
 }
 
+variable "wifi_config-5ghz" {
+  description = "list of wifi configurations, first in list is used as primary, for actual config select the datapath/channel/security template name"
+  type        = list(object({
+    name      = string
+    datapath  = string
+    channel   = string
+    ssid      = string
+    security  = string
+  }))
+  default     = []
+}
 variable "wifi_channel" {
   description         = "list of wifi channel configuration templates"
   type                = list(object({
@@ -119,7 +131,6 @@ variable "wifi_channel" {
     channel_width     = string
     skip_dfs          = string
     reselect_interval = string
-    frequency         = list(number)
   }))
 }
 
