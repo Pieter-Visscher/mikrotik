@@ -15,16 +15,67 @@ variable "CAPsMAN" {
 variable "CAPsMAN_interfaces" {
   description = "list of interfaces where CAPsMAN listens for CAP devices"
   type        = list(string)
+  default     = []
 }
 
 variable "default_cidr" {
   description = "Default cidr used as base for all subnets"
   type        = string
+  default     = ""
 }
 
 variable "dhcp_range" {
   description = "range used for DHCP server"
   type        = list(number)
+  default     = []
+}
+
+variable "dhcp_options" {
+  description = "list containing dhcp options"
+  type        = list(object({
+    name      = string
+    code      = number
+    value     = string
+  }))
+  default = []
+}
+
+variable "dhcp_option_sets" {
+  description = "list containing dhcp option sets"
+  type        = list(object({
+    name      = string
+    options   = string
+  }))
+  default     = []
+}
+
+variable "edge" {
+  description = "is this an edge device or not"
+  type        = bool
+  default     = false
+}
+
+variable "enable_dhcp" {
+  description = "enable dhcp"
+  type        = bool
+  default     = true
+}
+variable "enable_firewall" {
+  description = "enable firewall"
+  type        = bool
+  default     = true
+}
+
+variable "enable_wifi" {
+  description = "enable wifi"
+  type        = bool
+  default     = true
+}
+
+variable "enable_wireguard" {
+  description = "enable wireguard"
+  type        = bool
+  default     = true
 }
 
 variable "homelab_password" {
@@ -36,12 +87,12 @@ variable "homelab_host_url" {
   type      = string
 }
 
-variable "test_password" {
+variable "switch1_password" {
   type      = string
   sensitive = true
 }
 
-variable "test_host_url" {
+variable "switch1_host_url" {
   type      = string
 }
 
@@ -55,17 +106,26 @@ variable "vlans" {
     tagged_ports   = list(string)
     untagged_ports = list(string)
     dhcp           = bool
+    dhcp_options   = string
   }))
   default = []
+}
+
+variable "vlan_address_creation" {
+  description = "Automatically create addresses for a vlan"
+  type = bool
+  default = true
 }
 
 variable "vpn_interface_address" {
   type = string
   description = "address inside the vpn subnet. Base subnet + vpn_interface_subnet is used to compile complete subnet in cidr notation"
+  default = ""
 }
 variable "vpn_interface_subnet" {
   type = string
   description = "subnet used for the VPN network"
+  default = ""
 }
 
 variable "vpn_peers" {
@@ -87,16 +147,22 @@ variable "wan" {
     interface   = string
     dhcp        = bool
   })
+  default = {
+    interface   = ""
+    dhcp        = false
+  }
 }
 
 variable "wan_allowed" {
   description = "List of interfaces with WAN access"
   type        = list(string)
+  default     = []
 }
 
 variable "wan_ip" {
   type        = string
   description = "WAN IP"
+  default     = ""
 }
 
 
@@ -132,11 +198,13 @@ variable "wifi_channel" {
     skip_dfs          = string
     reselect_interval = string
   }))
+  default = []
 }
 
 variable "wifi_country" {
   description = "your location, for wifi configuration"
   type        = string
+  default     = ""
 }
 
 variable "wifi_datapath" {
@@ -147,6 +215,7 @@ variable "wifi_datapath" {
     client_isolation  = bool
     bridge            = string
   }))
+  default = []
 }
 
 variable "wifi_passwords" {
@@ -165,4 +234,11 @@ variable "wifi_security" {
     ft-over-ds            = bool
     management_protection = string
   }))
+  default = []
+}
+
+variable "wifi_traffic_processing" {
+  description             = "input for traffic-processing in datapath"
+  type                    = string
+  default                 = ""
 }
