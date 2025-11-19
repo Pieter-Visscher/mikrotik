@@ -7,4 +7,5 @@ module "dhcp" {
   dhcp_range        = var.dhcp_range
   dhcp_options      = var.dhcp_options
   dhcp_option_sets  = var.dhcp_option_sets
+  pxe_options       = var.pxe_options
 }

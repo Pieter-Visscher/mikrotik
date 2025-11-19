@@ -13,37 +13,39 @@ CAPsMAN_interfaces = ["vlan_51"]
 default_cidr = "10.0.0.0/24"
 dhcp_range   = [200, 250]
 
-dhcp_options = [
+#dhcp_options = [
+#  {
+#    name            = "pxe boot to mgt01"
+#    code            = 66
+#    value           = "s'10.0.50.10'"
+#  },
+#  {
+#    name            = "ipxe boot file"
+#    code            = 67
+#    value           = "s'ipxe.efi'"
+#  }
+#]
+#
+#dhcp_option_sets = [
+#  {
+#    name            = "ipxe"
+#    options         = "ipxe boot file,pxe boot to mgt01"
+#  }
+#]
+
+pxe_options = [
   {
-    name            = "pxe boot tftp server"
-    code            = 66
-    value           = "s'10.1.100.17'"
-  },
-  {
-    name            = "undionly.kpxe"
-    code            = 67
-    value           = "s'ipxe.efi'"
-  },
-  {
-    name            = "talos ipxe"
-    code            = 67
-    value           = "s'http://pxe.pieter.fish/talos/boot.ipxe'"
-  },
-  {
-    name            = "talos custom ipxe"
-    code            = 210
-    value           = "s'http://pxe.pieter.fish/talos/boot.ipxe'"
+    interface   = "vlan_50"
+    next_server = "10.0.50.10"
+    bootfile    = "ipxe.efi"
   }
 ]
 
-dhcp_option_sets = [
+dns_records = [
   {
-    name            = "talos"
-    options         = "talos ipxe,pxe boot tftp server"
-  },
-  {
-    name            = "ipxe"
-    options         = "undionly.kpxe,pxe boot tftp server,talos custom ipxe"
+    name    = "nfs.nauvis.lan"
+    address = "10.1.106.5"
+    type    = "A"
   }
 ]
 
@@ -56,7 +58,6 @@ vlans = [
     tagged_ports    = ["ether1", "sfp-sfpplus1"]
     untagged_ports  = ["ether7", "ether3"]
     dhcp            = true
-    dhcp_options    = null
   },
   {
     name            = "vlan_51"
@@ -66,7 +67,6 @@ vlans = [
     tagged_ports    = []
     untagged_ports  = ["ether8"]
     dhcp            = true
-    dhcp_options    = null
   },
   {
     name            = "vlan_90"
@@ -76,7 +76,6 @@ vlans = [
     tagged_ports    = ["ether8"]
     untagged_ports  = []
     dhcp            = true
-    dhcp_options    = null
   },
   {
     name            = "vlan_91"
@@ -86,7 +85,6 @@ vlans = [
     tagged_ports    = ["ether8"]
     untagged_ports  = []
     dhcp            = true
-    dhcp_options    = null
   },
   {
     name            = "vlan_100"
@@ -96,7 +94,6 @@ vlans = [
     tagged_ports    = ["ether8", "ether1", "sfp-sfpplus1"]
     untagged_ports  = []
     dhcp            = true
-    dhcp_options    = null
   },
   {
     name            = "vlan_150"
@@ -105,8 +102,6 @@ vlans = [
     id              = 150
     tagged_ports    = ["sfp-sfpplus1"]
     untagged_ports  = []
-    dhcp            = false
-    dhcp_options    = null
   },
   {
     name            = "vlan_200"
@@ -115,18 +110,6 @@ vlans = [
     id              = "200"
     tagged_ports    = ["sfp-sfpplus1"]
     untagged_ports  = ["ether6"]
-    dhcp            = true
-    dhcp_options    = "ipxe"
-  },
-  {
-    name            = "vlan_201"
-    comment         = "kubernetes storage"
-    interface       = "bridge"
-    id              = "201"
-    tagged_ports    = ["sfp-sfpplus1"]
-    untagged_ports  = []
-    dhcp            = true
-    dhcp_options    = null
   }
 ]
 

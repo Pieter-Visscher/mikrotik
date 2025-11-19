@@ -61,6 +61,15 @@ variable "dhcp_option_sets" {
   default     = []
 }
 
+variable "dns_records" {
+  description = "dns records"
+  type        = list(object({
+    name      = string
+    address   = string
+    type      = string
+  }))
+}
+
 variable "edge" {
   description = "is this an edge device or not"
   type        = bool
@@ -99,6 +108,15 @@ variable "homelab_host_url" {
   type      = string
 }
 
+variable "pxe_options" {
+  type = list(object({
+    interface   = string
+    next_server = string
+    bootfile    = optional(string)
+  }))
+  default = []
+}
+
 variable "switch1_password" {
   type      = string
   sensitive = true
@@ -117,8 +135,8 @@ variable "vlans" {
     id             = number
     tagged_ports   = list(string)
     untagged_ports = list(string)
-    dhcp           = bool
-    dhcp_options   = string
+    dhcp           = optional(bool, false)
+    dhcp_options   = optional(string, null)
   }))
   default = []
 }
