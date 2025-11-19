@@ -5,6 +5,30 @@ bridges = [
   }
 ]
 
+bonds = [
+  {
+    name            = "bond0"
+    comment         = "talos-controlplane"
+    slaves          = ["ether1", "ether2"]
+    lacp_rate       = "1sec"
+    mode            = "802.3ad"
+  },
+  {
+    name            = "bond1"
+    comment         = "talos-controlplane"
+    slaves          = ["ether3", "ether4"]
+    lacp_rate       = "1sec"
+    mode            = "802.3ad"
+  },
+  {
+    name            = "bond2"
+    comment         = "talos-controlplane"
+    slaves          = ["ether5", "ether6"]
+    lacp_rate       = "1sec"
+    mode            = "802.3ad"
+  }
+]
+
 default_cidr = "10.0.0.0/24"
 enable_dhcp = false
 enable_firewall = false
@@ -20,7 +44,7 @@ vlans = [
     interface       = "bridge"
     id              = 50
     tagged_ports    = ["sfp-sfpplus1"]
-    untagged_ports  = []
+    untagged_ports  = ["bond0", "bond1", "bond2"]
     dhcp            = false
     dhcp_options    = null
   },
@@ -79,19 +103,9 @@ vlans = [
     comment         = "kubernetes"
     interface       = "bridge"
     id              = "200"
-    tagged_ports    = ["sfp-sfpplus1"]
+    tagged_ports    = ["sfp-sfpplus1", "bond0", "bond1", "bond2"]
     untagged_ports  = []
     dhcp            = false
     dhcp_options    = null 
-  },
-  {
-    name            = "vlan_201"
-    comment         = "kubernetes storage"
-    interface       = "bridge"
-    id              = "201"
-    tagged_ports    = ["sfp-sfpplus1"]
-    untagged_ports  = []
-    dhcp            = true
-    dhcp_options    = null
   }
 ]

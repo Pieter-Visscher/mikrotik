@@ -1,6 +1,7 @@
 module "vlans" {
   source = "git::https://github.com/Pieter-Visscher/terraform-modules.git//routeros-interfaces?ref=main"
 
+  bonds                 = var.bonds
   bridges               = var.bridges
   default_cidr          = var.default_cidr
   edge                  = var.edge

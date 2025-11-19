@@ -11,7 +11,7 @@ CAPsMAN            = true
 CAPsMAN_interfaces = ["vlan_51"]
 
 default_cidr = "10.0.0.0/24"
-dhcp_range   = [200, 254]
+dhcp_range   = [200, 250]
 
 dhcp_options = [
   {
@@ -54,8 +54,8 @@ vlans = [
     interface       = "bridge"
     id              = 50
     tagged_ports    = ["ether1", "sfp-sfpplus1"]
-    untagged_ports  = ["ether7"]
-    dhcp            = false
+    untagged_ports  = ["ether7", "ether3"]
+    dhcp            = true
     dhcp_options    = null
   },
   {

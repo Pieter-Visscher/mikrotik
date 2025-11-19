@@ -6,6 +6,18 @@ variable "bridges" {
   }))
 }
 
+variable "bonds" {
+  description = "bond configurations"
+  type = list(object({
+    name           = string
+    comment        = string
+    slaves         = list(string)
+    lacp_rate      = string
+    mode           = string
+  }))
+  default = []
+}
+
 variable "CAPsMAN" {
   description = "Enable Capsman"
   type        = bool
