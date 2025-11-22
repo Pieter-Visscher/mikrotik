@@ -9,11 +9,12 @@ variable "bridges" {
 variable "bonds" {
   description = "bond configurations"
   type = list(object({
-    name           = string
-    comment        = string
-    slaves         = list(string)
-    lacp_rate      = string
-    mode           = string
+    name                  = string
+    comment               = string
+    slaves                = list(string)
+    lacp_rate             = string
+    mode                  = string
+    transmit_hash_policy  = string
   }))
   default = []
 }
@@ -68,6 +69,7 @@ variable "dns_records" {
     address   = string
     type      = string
   }))
+  default = []
 }
 
 variable "edge" {

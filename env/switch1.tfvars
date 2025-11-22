@@ -7,25 +7,28 @@ bridges = [
 
 bonds = [
   {
-    name            = "bond0"
-    comment         = "talos-controlplane"
-    slaves          = ["ether1", "ether2"]
-    lacp_rate       = "1sec"
-    mode            = "802.3ad"
+    name                  = "bond0"
+    comment               = "talos-controlplane"
+    slaves                = ["ether1", "ether2"]
+    lacp_rate             = "1sec"
+    mode                  = "802.3ad"
+    transmit_hash_policy  = "layer-3-and-4"
   },
   {
-    name            = "bond1"
-    comment         = "talos-controlplane"
-    slaves          = ["ether3", "ether4"]
-    lacp_rate       = "1sec"
-    mode            = "802.3ad"
+    name                  = "bond1"
+    comment               = "talos-controlplane"
+    slaves                = ["ether3", "ether4"]
+    lacp_rate             = "1sec"
+    mode                  = "802.3ad"
+    transmit_hash_policy  = "layer-3-and-4"
   },
   {
-    name            = "bond2"
-    comment         = "talos-controlplane"
-    slaves          = ["ether5", "ether6"]
-    lacp_rate       = "1sec"
-    mode            = "802.3ad"
+    name                  = "bond2"
+    comment               = "talos-controlplane"
+    slaves                = ["ether5", "ether6"]
+    lacp_rate             = "1sec"
+    mode                  = "802.3ad"
+    transmit_hash_policy  = "layer-3-and-4"
   }
 ]
 
