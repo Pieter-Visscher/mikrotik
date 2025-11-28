@@ -46,6 +46,21 @@ dns_records = [
     name    = "nfs.nauvis.lan"
     address = "10.1.106.5"
     type    = "A"
+  },
+  {
+    name    = "awx-hop.nauvis.lan"
+    address = "10.0.150.10"
+    type    = "A"
+  },
+  {
+    name    = "awx-rex.nauvis.lan"
+    address = "10.0.150.11"
+    type    = "A"
+  },
+  {
+    name    = "awx.nauvis.lan"
+    address = "10.0.200.7"
+    type    = "A"
   }
 ]
 
@@ -100,7 +115,7 @@ vlans = [
     comment         = "public"
     interface       = "bridge"
     id              = 150
-    tagged_ports    = ["sfp-sfpplus1"]
+    tagged_ports    = ["ether1", "sfp-sfpplus1"]
     untagged_ports  = []
   },
   {
