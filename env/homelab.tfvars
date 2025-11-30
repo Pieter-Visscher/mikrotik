@@ -61,6 +61,21 @@ dns_records = [
     name    = "awx.nauvis.lan"
     address = "10.0.200.7"
     type    = "A"
+  },
+  {
+    name    = "paperless.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
+  },
+  {
+    name    = "immich.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
+  },
+  {
+    name    = "registry.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
   }
 ]
 
