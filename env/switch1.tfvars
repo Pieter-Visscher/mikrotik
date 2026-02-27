@@ -10,25 +10,25 @@ bonds = [
     name                  = "bond0"
     comment               = "talos-controlplane"
     slaves                = ["ether1", "ether2"]
-    lacp_rate             = "1sec"
+    lacp_rate             = "30secs"
     mode                  = "802.3ad"
-    transmit_hash_policy  = "layer-3-and-4"
+    transmit_hash_policy  = "layer-2-and-3"
   },
   {
     name                  = "bond1"
     comment               = "talos-controlplane"
     slaves                = ["ether3", "ether4"]
-    lacp_rate             = "1sec"
+    lacp_rate             = "30secs"
     mode                  = "802.3ad"
-    transmit_hash_policy  = "layer-3-and-4"
+    transmit_hash_policy  = "layer-2-and-3"
   },
   {
     name                  = "bond2"
     comment               = "talos-controlplane"
     slaves                = ["ether5", "ether6"]
-    lacp_rate             = "1sec"
+    lacp_rate             = "30secs"
     mode                  = "802.3ad"
-    transmit_hash_policy  = "layer-3-and-4"
+    transmit_hash_policy  = "layer-2-and-3"
   }
 ]
 
@@ -46,8 +46,10 @@ vlans = [
     comment         = "management"
     interface       = "bridge"
     id              = 50
-    tagged_ports    = ["sfp-sfpplus1"]
-    untagged_ports  = ["bond0", "bond1", "bond2"]
+    #tagged_ports    = ["sfp-sfpplus1"]
+    tagged_ports    = ["sfp-sfpplus1", "bond0", "bond1", "bond2"]
+    untagged_ports  = []
+    #untagged_ports  = ["bond0", "bond1", "bond2"]
     dhcp            = false
     dhcp_options    = null
   },
@@ -76,7 +78,7 @@ vlans = [
     comment         = "iot"
     interface       = "bridge"
     id              = 91 
-    tagged_ports    = []
+    tagged_ports    = ["sfp-sfpplus1", "bond0", "bond1", "bond2"]
     untagged_ports  = []
     dhcp            = false
     dhcp_options    = null

@@ -76,6 +76,51 @@ dns_records = [
     name    = "registry.nauvis.lan"
     address = "10.0.200.200"
     type    = "A"
+  },
+  {
+    name    = "longhorn.nauvis.lan"
+    address = "10.0.50.199"
+    type    = "A"
+  },
+  {
+    name    = "argocd.nauvis.lan"
+    address = "10.0.50.150"
+    type    = "A"
+  },
+  {
+    name    = "git.pieter.fish"
+    address = "10.0.200.202"
+    type    = "A"
+  },
+  {
+    name    = "ai.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
+  },
+  {
+    name    = "nextcloud.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
+  },
+  {
+    name    = "mc1.nauvis.lan"
+    address = "10.0.200.2"
+    type    = "A"
+  },
+  {
+    name    = "mc2.nauvis.lan"
+    address = "10.0.200.2"
+    type    = "A"
+  },
+  {
+    name    = "homeassistant.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
+  },
+  {
+    name    = "woodpecker.nauvis.lan"
+    address = "10.0.200.200"
+    type    = "A"
   }
 ]
 
@@ -86,7 +131,7 @@ vlans = [
     interface       = "bridge"
     id              = 50
     tagged_ports    = ["ether1", "sfp-sfpplus1"]
-    untagged_ports  = ["ether7", "ether3"]
+    untagged_ports  = ["ether3", "ether5"]
     dhcp            = true
   },
   {
@@ -112,8 +157,8 @@ vlans = [
     comment         = "iot"
     interface       = "bridge"
     id              = 91 
-    tagged_ports    = ["ether8"]
-    untagged_ports  = []
+    tagged_ports    = ["ether8", "sfp-sfpplus1"]
+    untagged_ports  = ["ether7", "ether6"]
     dhcp            = true
   },
   {
@@ -151,7 +196,7 @@ wan = {
   dhcp      = true
 }
 
-wan_allowed = ["vlan_50", "vlan_100", "vlan_150", "vlan_200"]
+wan_allowed = ["vlan_50", "vlan_91", "vlan_100", "vlan_150", "vlan_200"]
 wifi_country  = "Netherlands"
 #wifi_traffic_processing = "on-capsman"
 wifi_traffic_processing = "on-cap"
@@ -180,13 +225,6 @@ wifi_config-5ghz = [
     channel   = "Gen 5Ghz"
     ssid      = "nauvis"
     security  = "internal"
-  },
-  {
-    name      = "iot-5ghz"
-    datapath  = "iot_datapath"
-    channel   = "Gen 5Ghz"
-    ssid      = "nauvis iot"
-    security  = "iot"
   }
 ]
 
